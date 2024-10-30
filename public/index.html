@@ -1,8 +1,46 @@
-<html>
-    <head>
-        <title>DVOPS - Blogging website</title>
-    </head>
-    <body>
-        Our blogging website where users can post blogs
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DVOPS - Blogging App Project</title>
+    <script src="js/branden.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="#">Home</a>
+        </nav>
+        <h1>mala club 😼</h1>
+    </header>
+
+    <div class="container">
+        <h2>Blogs</h2>
+
+        <div class="search-container">
+            <input type="text" placeholder="Search">
+            <button class="upload-btn" button id = "upload-btn">Upload Blog</button>
+        </div>
+
+        <script type ="text/javascript">
+            document.getElementById("upload-btn").onclick = function () {
+                location.href = "#"
+            }
+        </script>
+
+        <div id="resourceContainer"></div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            viewBlogs();
+        };
+    </script>
+</body>
+
 </html>
