@@ -1,6 +1,6 @@
 class Resource {
-    constructor(name, description, owner) {
-    this.author = author;
+    constructor(title, description, owner) {
+    this.title = title;
     this.description = description;
     this.author = author;
     const timestamp = new Date().getTime();
