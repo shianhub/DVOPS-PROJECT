@@ -9,8 +9,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("./public"));
 
-const { viewBlogs, editResource } = require('./utils/ResourceUtil')
+const { viewBlogs, editResource, addResource } = require('./utils/ResourceUtil')
 app.get('/view-blog', viewBlogs);
+app.post('/add-resource', addResource);
 app.put('/edit-resource/:id', editResource);
 
 app.get('/', (req, res) => {

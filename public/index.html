@@ -10,12 +10,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
     <script src="js/justin.js"></script>
-
+    <script src="js/alsen.js"></script>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
 </head>
 
 <body>
@@ -31,16 +29,45 @@
 
         <div class="search-container">
             <input type="text" placeholder="Search">
-            <button class="upload-btn" button id = "upload-btn">Upload Blog</button>
+            <button class="upload-btn btn btn-primary" id="upload-btn" data-toggle="modal" data-target="#blogModal">Upload Blog</button>
         </div>
 
-        <script type ="text/javascript">
-            document.getElementById("upload-btn").onclick = function () {
-                location.href = "#"
-            }
-        </script>
-
         <div id="resourceContainer"></div>
+    </div>
+
+    <!-- Blog Upload Modal -->
+    <div class="modal fade" id="blogModal" tabindex="-1" role="dialog" aria-labelledby="blogModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="blogModalLabel">Upload New Blog</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="title">Blog Title</label>
+                            <input type="text" class="form-control" id="title" placeholder="Enter blog title">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" class="form-control" id="description" placeholder="Enter short description">
+                        </div>
+                        <div class="form-group">
+                            <label for="author">Author</label>
+                            <input type="text" class="form-control" id="author" placeholder="Enter author email">
+                        </div>
+                        <p align="right" id="message" class=""></p>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="addResource()">Upload Blog</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
