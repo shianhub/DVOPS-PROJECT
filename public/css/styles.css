@@ -43,14 +43,17 @@ h2 {
     border-radius: 10px;
     width: 200px;
 }
-.upload-btn {
+
+
+.button {
     padding: 8px 15px;
     background-color: black;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    text-align: right;
+    text-align: center;
+    width: 100px
 }
 
 /* Blog post box styling */
