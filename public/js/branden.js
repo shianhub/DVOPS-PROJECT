@@ -9,6 +9,9 @@ function viewBlogs() {
         response = JSON.parse(request.responseText);
 
         var html = '';
+            if (response.length === 0) {
+                html = '<p class = "no-blog"> No blogs found!</p>';
+            } else {
         for (var i = 0; i < response.length; i++) {
             html += `
                 <div class="blog-post">
@@ -25,6 +28,7 @@ function viewBlogs() {
                     </div>
                 </div>`;
         }
+    }   
 
         document.getElementById('resourceContainer').innerHTML = html;
     };
