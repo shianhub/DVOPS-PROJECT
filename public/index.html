@@ -28,6 +28,10 @@
         <h2>Blogs</h2>
 
         <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search">
+            <button class="upload-btn btn btn-primary" id="upload-btn" data-toggle="modal"
+                data-target="#blogModal">Upload Blog</button>
+
             <input type="text" placeholder="Search">
         </div>
 
@@ -35,7 +39,8 @@
     </div>
 
     <!-- Blog Upload Modal -->
-    <div class="modal fade" id="blogModal" tabindex="-1" role="dialog" aria-labelledby="blogModalLabel" aria-hidden="true">
+    <div class="modal fade" id="blogModal" tabindex="-1" role="dialog" aria-labelledby="blogModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -52,7 +57,8 @@
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <input type="text" class="form-control" id="description" placeholder="Enter short description">
+                            <input type="text" class="form-control" id="description"
+                                placeholder="Enter short description">
                         </div>
                         <div class="form-group">
                             <label for="author">Author</label>
@@ -70,8 +76,20 @@
     </div>
 
     <script>
-        window.onload = function() {
+        window.onload = function () {
             viewBlogs();
+
+            // Add event listener for search input
+            document.getElementById('searchInput').addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase();
+                const filteredBlogs = allBlogs.filter(blog =>
+                    blog.title.toLowerCase().includes(searchTerm)
+                );
+                displayBlogs(filteredBlogs); // Display only filtered blogs
+                console.log("Search term:", searchTerm); // Debug: Log search term
+                console.log("Filtered blogs:", filteredBlogs); // Debug: Log filtered results
+            });
+
         };
     </script>
 </body>
