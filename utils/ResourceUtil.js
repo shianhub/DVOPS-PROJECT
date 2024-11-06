@@ -28,18 +28,18 @@ async function viewBlogs(req, res) {
 
 async function addResource(req, res) {
     try {
-      const title = req.body.title;
-      const description = req.body.description;
-      const author = req.body.author;
-  
-      const newResource = new Resource(title, description, author);
-      const updatedResources = await writeJSON(newResource, 'utils/resources.json');
-      return res.status(201).json(updatedResources);
+        const title = req.body.title;
+        const description = req.body.description;
+        const author = req.body.author;
+
+        const newResource = new Resource(title, description, author);
+        const updatedResources = await writeJSON(newResource, 'utils/resources.json');
+        return res.status(201).json(updatedResources);
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+        return res.status(500).json({ message: error.message });
     }
-  }
-  
+}
+
 
 async function editResource(req, res) {
     try {
@@ -68,6 +68,33 @@ async function editResource(req, res) {
         return res.status(500).json({ message: error.message });
     }
 }
-module.exports = {
-    readJSON, writeJSON, viewBlogs, editResource, addResource
+
+async function deleteResource(req, res) {
+    try {
+        const id = req.params.id;
+        const allResources = await readJSON('utils/resources.json');
+        
+        // Find index of the resource with the matching id
+        const index = allResources.findIndex(resource => resource.id == id);
+
+        if (index !== -1) {
+            // Remove the resource from the array
+            allResources.splice(index, 1);
+            // Write updated array back to the JSON file
+            await fs.writeFile('utils/resources.json', JSON.stringify(allResources), 'utf8');
+            return res.status(200).json({ message: 'Resource deleted successfully!' });
+        } else {
+            // If resource is not found, return a 404 error
+            return res.status(404).json({ message: 'Resource not found!' });
+        }
+    } catch (error) {
+        // Return a 500 error if there's a server issue
+        return res.status(500).json({ message: error.message });
+    }
 }
+
+
+module.exports = {
+    readJSON, writeJSON, viewBlogs, editResource, addResource, deleteResource 
+}
+
