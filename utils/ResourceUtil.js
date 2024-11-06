@@ -32,13 +32,18 @@ async function addResource(req, res) {
       const description = req.body.description;
       const author = req.body.author;
   
-      const newResource = new Resource(title, description, author);
-      const updatedResources = await writeJSON(newResource, 'utils/resources.json');
-      return res.status(201).json(updatedResources);
+      if (!author.includes('@') || !author.includes('.')) {
+        return res.status(500).json({ message: 'Validation error' });
+      } else {
+        const newResource = new Resource(title, description, author);
+        const updatedResources = await writeJSON(newResource, 'utils/resources.json');
+        return res.status(201).json(updatedResources);
+      }
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
   }
+  
   
 
 async function editResource(req, res) {
