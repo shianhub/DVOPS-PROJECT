@@ -74,22 +74,43 @@
         </div>
     </div>
 
+    <!-- Delete Resource Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete Resource</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this Resource? To confirm, type 'Confirm'.</p>
+                    <input type="text" id="deleteConfirmationInput" class="form-control" placeholder="Type 'Confirm' to proceed">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         window.onload = function () {
-    viewBlogs();
+            viewBlogs();
 
-    // Add event listener for search input
-    document.getElementById('searchInput').addEventListener('input', function () {
-        const searchTerm = this.value.toLowerCase();
-        const filteredBlogs = allBlogs.filter(blog =>
-            blog.title.toLowerCase().includes(searchTerm)
-        );
-        displayBlogs(filteredBlogs); // Display only filtered blogs
-        console.log("Search term:", searchTerm); // Debug: Log search term
-        console.log("Filtered blogs:", filteredBlogs); // Debug: Log filtered results
-    });
-};
-
+            // Add event listener for search input
+            document.getElementById('searchInput').addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase();
+                const filteredBlogs = allBlogs.filter(blog =>
+                    blog.title.toLowerCase().includes(searchTerm)
+                );
+                displayBlogs(filteredBlogs); // Display only filtered blogs
+                console.log("Search term:", searchTerm); // Debug: Log search term
+                console.log("Filtered blogs:", filteredBlogs); // Debug: Log filtered results
+            });
+        };
     </script>
 </body>
 

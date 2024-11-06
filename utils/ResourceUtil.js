@@ -85,7 +85,7 @@ async function deleteResource(req, res) {
         if (index != -1) {
             allResources.splice(index, 1);
             await fs.writeFile('utils/resources.json', JSON.stringify(allResources), 'utf8');
-            return res.status(201).json({ message: 'Resource deleted successfully!' });
+            return res.status(201).json({ message: 'Blog deleted successfully!' });
         } else {
             return res.status(500).json({ message: 'Error occurred, unable to delete!' });
         }
@@ -93,7 +93,6 @@ async function deleteResource(req, res) {
         return res.status(500).json({ message: error.message });
     }
 }
-
 
 
 module.exports = {
