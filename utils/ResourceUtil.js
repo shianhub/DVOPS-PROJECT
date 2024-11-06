@@ -28,21 +28,22 @@ async function viewBlogs(req, res) {
 
 async function addResource(req, res) {
     try {
-      const title = req.body.title;
-      const description = req.body.description;
-      const author = req.body.author;
-  
-      if (!author.includes('@') || !author.includes('.')) {
-        return res.status(500).json({ message: 'Validation error' });
-      } else {
-        const newResource = new Resource(title, description, author);
-        const updatedResources = await writeJSON(newResource, 'utils/resources.json');
-        return res.status(201).json(updatedResources);
-      }
+        const { title, description, author } = req.body;
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(author)) {
+            return res.status(400).json({ message: 'Validation error: Invalid email format' });
+        } else {
+            const newResource = new Resource(title, description, author);
+            const updatedResources = await writeJSON(newResource, 'utils/resources.json');
+            return res.status(201).json(updatedResources);
+        }
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+        return res.status(500).json({ message: error.message });
     }
-  }
+}
+
   
   
 
