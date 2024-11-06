@@ -75,25 +75,19 @@
 
     <script>
         window.onload = function () {
-            viewBlogs();
+    viewBlogs();
 
-            // Add event listener for search input
-            document.getElementById('searchInput').addEventListener('input', function () {
-                const searchTerm = this.value.toLowerCase();
-                const filteredBlogs = allBlogs.filter(blog =>
-                    blog.title.toLowerCase().includes(searchTerm)
-                );
-                displayBlogs(filteredBlogs); // Display only filtered blogs
-                console.log("Search term:", searchTerm); // Debug: Log search term
-                console.log("Filtered blogs:", filteredBlogs); // Debug: Log filtered results
-            });
-
-        };
-
-     // Other JavaScript functions for your page
-     window.onload = function () {
-        viewBlogs();
-    };
+    // Add event listener for search input
+    document.getElementById('searchInput').addEventListener('input', function () {
+        const searchTerm = this.value.toLowerCase();
+        const filteredBlogs = allBlogs.filter(blog =>
+            blog.title.toLowerCase().includes(searchTerm)
+        );
+        displayBlogs(filteredBlogs); // Display only filtered blogs
+        console.log("Search term:", searchTerm); // Debug: Log search term
+        console.log("Filtered blogs:", filteredBlogs); // Debug: Log filtered results
+    });
+};
 
     // Add the deleteResource function here
 // Function to delete a blog resource
