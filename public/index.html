@@ -74,20 +74,36 @@
     </div>
 
     <script>
-        window.onload = function () {
-    viewBlogs();
+    window.onload = function () {
+        viewBlogs();
 
-    // Add event listener for search input
-    document.getElementById('searchInput').addEventListener('input', function () {
-        const searchTerm = this.value.toLowerCase();
-        const filteredBlogs = allBlogs.filter(blog =>
-            blog.title.toLowerCase().includes(searchTerm)
-        );
-        displayBlogs(filteredBlogs); // Display only filtered blogs
-        console.log("Search term:", searchTerm); // Debug: Log search term
-        console.log("Filtered blogs:", filteredBlogs); // Debug: Log filtered results
-    });
-};
+        // Add event listener for search input
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const searchTerm = this.value.trim().toLowerCase(); // Trim whitespace
+
+            // If searchTerm is empty (after trimming), display all blogs
+            if (searchTerm === '') {
+                displayBlogs(allBlogs);
+                return;
+            }
+
+            // Filter blogs based on the search term
+            const filteredBlogs = allBlogs.filter(blog =>
+                blog.title.toLowerCase().includes(searchTerm)
+            );
+
+            // Display filtered blogs or a "No blogs found" message
+            if (filteredBlogs.length > 0) {
+                displayBlogs(filteredBlogs);
+            } else {
+                document.getElementById('resourceContainer').innerHTML = '<p>No blogs found.</p>';
+            }
+
+            console.log("Search term:", searchTerm); // Debug: Log search term
+            console.log("Filtered blogs:", filteredBlogs); // Debug: Log filtered results
+        });
+    };
+
 
     // Add the deleteResource function here
 // Function to delete a blog resource
