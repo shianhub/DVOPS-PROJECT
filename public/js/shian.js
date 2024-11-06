@@ -1,32 +1,44 @@
-// do your code here @shi an
+// Function to delete a resource with a confirmation prompt
+function deleteResource(selectedId) {
+    // Confirm with the user before proceeding with deletion
+    const userConfirmed = confirm("Are you sure you want to delete this resource?");
+    if (!userConfirmed) {
+        // If the user clicks "Cancel", exit the function
+        return;
+    }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const deleteButtons = document.querySelectorAll('.delete-btn');
+    // Create an XMLHttpRequest to send the DELETE request
+    var request = new XMLHttpRequest();
+    request.open("DELETE", "/delete-resource/" + selectedId, true);
+    request.setRequestHeader('Content-Type', 'application/json');
 
-    deleteButtons.forEach(button => {
-        button.addEventListener('click', async (event) => {
-            const resourceId = event.target.dataset.id;
+    // Handle the response from the server
+    request.onload = function () {
+        try {
+            var response = JSON.parse(request.responseText);
 
-            try {
-                const response = await fetch(`/delete-resource/${resourceId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-
-                if (response.ok) {
+            if (request.status >= 200 && request.status < 300) {
+                if (response.message === "Resource deleted successfully!") {
                     alert('Resource deleted successfully!');
-                    // Optionally, remove the element from the DOM
-                    event.target.closest('.resource-item').remove();
+                    // Refresh the page or redirect to ensure the updated list is shown
+                    window.location.reload();
                 } else {
-                    const errorData = await response.json();
-                    alert(`Error deleting resource: ${errorData.message}`);
+                    alert('Error: ' + response.message);
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred while trying to delete the resource.');
+            } else {
+                alert('Unable to delete resource! Error: ' + response.message);
             }
-        });
-    });
-});
+        } catch (e) {
+            console.error('Error parsing response:', e);
+            alert('An unexpected error occurred.');
+        }
+    };
+
+    // Handle any errors with the request itself
+    request.onerror = function () {
+        alert('An error occurred while trying to delete the blog.');
+    };
+
+    // Send the DELETE request
+    request.send();
+}
