@@ -100,6 +100,7 @@ async function deleteResource(req, res) {
 }
 
 
+
 module.exports = {
     readJSON, writeJSON, viewBlogs, editResource, addResource, deleteResource 
 }
