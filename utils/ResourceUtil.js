@@ -16,6 +16,11 @@ async function writeJSON(object, filename) {
     } catch (err) { console.error(err); throw err; }
 }
 
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
 async function viewBlogs(req, res) {
     try {
         const allResources = await readJSON('utils/resources.json');
@@ -32,6 +37,9 @@ async function editResource(req, res) {
         const author = req.body.author;
         const allResources = await readJSON('utils/resources.json');
         var modified = false;
+        if (!isValidEmail(author)) {
+            return res.status(400).json({ message: 'Invalid email format for author!' });
+        }
         for (var i = 0; i < allResources.length; i++) {
             var curcurrResource = allResources[i];
             if (curcurrResource.id == id) {

@@ -85,7 +85,10 @@ function updateResource(id) {
     request.onload = function () {
         try {
             const response = JSON.parse(request.responseText);
-            if (response.message === "Blog modified successfully!") {
+            if (response.message === "Invalid email format for author!"){
+                document.getElementById("editMessage").innerHTML = 'Invalid email format for author!';
+                document.getElementById("editMessage").className = "text-danger";
+            } else if (response.message === "Blog modified successfully!") {
                 document.getElementById("editMessage").innerHTML = 'Edited blog successfully!';
                 document.getElementById("editMessage").className = "text-success";
                 $('#editResourceModal').modal('hide');
