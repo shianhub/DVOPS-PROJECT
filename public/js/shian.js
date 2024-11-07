@@ -26,28 +26,23 @@ function deleteResource(selectedId) {
 
         // Handle the response from the server
         request.onload = function () {
-            if (request.status >= 200 && request.status < 300) {
-                try {
-                    var response = JSON.parse(request.responseText);
+            try {
+                var response = JSON.parse(request.responseText);
+
+                if (request.status >= 200 && request.status < 300) {
                     if (response.message === "Resource deleted successfully!") {
                         alert('Resource deleted successfully!');
                         // Refresh the page or redirect to ensure the updated list is shown
                         window.location.reload();
                     } else {
-                        alert('Error: ' + response.message);
+                        alert('Unable to delete resource! Error: ' + response.message);
                     }
-                } catch (e) {
-                    console.error('Error parsing response:', e);
-                    alert('An unexpected error occurred while parsing the server response.');
-                }
-            } else {
-                try {
-                    var response = JSON.parse(request.responseText);
+                } else {
                     alert('Unable to delete resource! Error: ' + response.message);
-                } catch (e) {
-                    console.error('Error parsing response:', e);
-                    alert('An unexpected error occurred while parsing the error response.');
                 }
+            } catch (e) {
+                console.error('Error parsing response:', e);
+                alert('An unexpected error occurred while parsing the server response.');
             }
         };
 
