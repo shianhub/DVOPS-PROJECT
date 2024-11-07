@@ -77,22 +77,27 @@ async function deleteResource(req, res) {
         const id = req.params.id;
         const allResources = await readJSON('utils/resources.json');
         var index = -1;
+        
         for (var i = 0; i < allResources.length; i++) {
-            var curcurrResource = allResources[i];
-            if (curcurrResource.id == id)
+            var currentResource = allResources[i];
+            if (currentResource.id == id) {
                 index = i;
+                break;
+            }
         }
+
         if (index != -1) {
             allResources.splice(index, 1);
             await fs.writeFile('utils/resources.json', JSON.stringify(allResources), 'utf8');
-            return res.status(201).json({ message: 'Blog deleted successfully!' });
+            return res.status(201).json({ message: 'Resource deleted successfully!' });
         } else {
-            return res.status(500).json({ message: 'Error occurred, unable to delete!' });
+            return res.status(500).json({ message: 'Error occurred, resource unable to delete!' });
         }
     } catch (error) {
-        return res.status(500).json({ message: error.message });
+        return res.status(500).json({ message: 'Error occurred, resource unable to delete!', error: error.message });
     }
 }
+
 
 
 module.exports = {
