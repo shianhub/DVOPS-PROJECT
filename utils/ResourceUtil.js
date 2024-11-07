@@ -76,26 +76,23 @@ async function deleteResource(req, res) {
     try {
         const id = req.params.id;
         const allResources = await readJSON('utils/resources.json');
-        var index = -1;
         
-        for (var i = 0; i < allResources.length; i++) {
-            var currentResource = allResources[i];
-            if (currentResource.id == id) {
-                index = i;
-                break;
-            }
-        }
+        // Find index of the resource with the matching id
+        const index = allResources.findIndex(resource => resource.id == id);
 
-        if (index != -1) {
+        if (index !== -1) {
+            // Remove the resource from the array
             allResources.splice(index, 1);
             // Write updated array back to the JSON file
             await fs.writeFile('utils/resources.json', JSON.stringify(allResources), 'utf8');
-            return res.status(201).json({ message: 'Resource deleted successfully!' });
+            return res.status(200).json({ message: 'Resource deleted successfully!' });
         } else {
-            return res.status(500).json({ message: 'Error occurred, resource unable to delete!' });
+            // If resource is not found, return a 404 error
+            return res.status(404).json({ message: 'Resource not found!' });
         }
     } catch (error) {
-        return res.status(500).json({ message: 'Error occurred, resource unable to delete!', error: error.message });
+        // Return a 500 error if there's a server issue
+        return res.status(500).json({ message: error.message });
     }
 }
 
