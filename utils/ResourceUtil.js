@@ -88,7 +88,6 @@ async function deleteResource(req, res) {
 
         if (index != -1) {
             allResources.splice(index, 1);
-            // Write updated array back to the JSON file
             await fs.writeFile('utils/resources.json', JSON.stringify(allResources), 'utf8');
             return res.status(201).json({ message: 'Resource deleted successfully!' });
         } else {
