@@ -22,7 +22,7 @@ function createEditModal() {
                             </div>
                             <div class="form-group">
                                 <label for="editAuthor">Author</label>
-                                <input type="text" class="form-control" id="editAuthor" placeholder="Enter author name">
+                                <input type="text" class="form-control" id="editAuthor" placeholder="Enter author email">
                             </div>
                             <p id="editMessage" class=""></p>
                         </form>
@@ -85,7 +85,10 @@ function updateResource(id) {
     request.onload = function () {
         try {
             const response = JSON.parse(request.responseText);
-            if (response.message === "Blog modified successfully!") {
+            if (response.message === "Invalid email format for author!"){
+                document.getElementById("editMessage").innerHTML = 'Invalid email format for author!';
+                document.getElementById("editMessage").className = "text-danger";
+            } else if (response.message === "Blog modified successfully!") {
                 document.getElementById("editMessage").innerHTML = 'Edited blog successfully!';
                 document.getElementById("editMessage").className = "text-success";
                 $('#editResourceModal').modal('hide');
@@ -108,3 +111,4 @@ function updateResource(id) {
 
     request.send(JSON.stringify(jsonData));
 }
+
