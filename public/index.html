@@ -97,20 +97,71 @@
     </div>
 
     <script>
-        window.onload = function () {
-            viewBlogs();
+    window.onload = function () {
+        viewBlogs();
 
-            // Add event listener for search input
-            document.getElementById('searchInput').addEventListener('input', function () {
-                const searchTerm = this.value.toLowerCase();
-                const filteredBlogs = allBlogs.filter(blog =>
-                    blog.title.toLowerCase().includes(searchTerm)
-                );
-                displayBlogs(filteredBlogs); // Display only filtered blogs
-                console.log("Search term:", searchTerm); // Debug: Log search term
-                console.log("Filtered blogs:", filteredBlogs); // Debug: Log filtered results
-            });
-        };
+        // Add event listener for search input
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const searchTerm = this.value.trim().toLowerCase(); // Trim whitespace
+
+            // If searchTerm is empty (after trimming), display all blogs
+            if (searchTerm === '') {
+                displayBlogs(allBlogs);
+                return;
+            }
+
+            // Filter blogs based on the search term
+            const filteredBlogs = allBlogs.filter(blog =>
+                blog.title.toLowerCase().includes(searchTerm)
+            );
+
+            // Display filtered blogs or a "No blogs found" message
+            if (filteredBlogs.length > 0) {
+                displayBlogs(filteredBlogs);
+            } else {
+                document.getElementById('resourceContainer').innerHTML = '<p>No blogs found.</p>';
+            }
+
+            console.log("Search term:", searchTerm); // Debug: Log search term
+            console.log("Filtered blogs:", filteredBlogs); // Debug: Log filtered results
+        });
+    };
+
+
+    // Add the deleteResource function here
+// Function to delete a blog resource
+async function deleteResource(resourceId) {
+    // Ask for user confirmation before proceeding with delete
+    const userConfirmed = confirm("Are you sure you want to delete this blog?");
+    if (!userConfirmed) {
+        // If user selects "Cancel", exit the function
+        return;
+    }
+
+    try {
+        // Proceed with delete if user confirmed
+        const response = await fetch(`/delete-resource/${resourceId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            // Alert the user about successful deletion
+            alert('Resource deleted successfully!');
+            // Refresh the list of blogs by calling viewBlogs() to update the DOM
+            viewBlogs();
+        } else {
+            const errorData = await response.json();
+            alert(`Error deleting resource: ${errorData.message}`);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while trying to delete the resource.');
+    }
+}
+
     </script>
 </body>
 
