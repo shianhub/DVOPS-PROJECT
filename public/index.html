@@ -14,6 +14,7 @@
     <script src="js/alsen.js"></script>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="js/shian.js"></script> 
 </head>
 
 <body>
@@ -73,56 +74,43 @@
         </div>
     </div>
 
+    <!-- Delete Resource Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete Resource</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this Resource? To confirm, type 'Confirm'.</p>
+                    <input type="text" id="deleteConfirmationInput" class="form-control" placeholder="Type 'Confirm' to proceed">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         window.onload = function () {
-    viewBlogs();
-
-    // Add event listener for search input
-    document.getElementById('searchInput').addEventListener('input', function () {
-        const searchTerm = this.value.toLowerCase();
-        const filteredBlogs = allBlogs.filter(blog =>
-            blog.title.toLowerCase().includes(searchTerm)
-        );
-        displayBlogs(filteredBlogs); // Display only filtered blogs
-        console.log("Search term:", searchTerm); // Debug: Log search term
-        console.log("Filtered blogs:", filteredBlogs); // Debug: Log filtered results
-    });
-};
-
-    // Add the deleteResource function here
-// Function to delete a blog resource
-async function deleteResource(resourceId) {
-    // Ask for user confirmation before proceeding with delete
-    const userConfirmed = confirm("Are you sure you want to delete this blog?");
-    if (!userConfirmed) {
-        // If user selects "Cancel", exit the function
-        return;
-    }
-
-    try {
-        // Proceed with delete if user confirmed
-        const response = await fetch(`/delete-resource/${resourceId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        if (response.ok) {
-            // Alert the user about successful deletion
-            alert('Resource deleted successfully!');
-            // Refresh the list of blogs by calling viewBlogs() to update the DOM
             viewBlogs();
-        } else {
-            const errorData = await response.json();
-            alert(`Error deleting resource: ${errorData.message}`);
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred while trying to delete the resource.');
-    }
-}
 
+            // Add event listener for search input
+            document.getElementById('searchInput').addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase();
+                const filteredBlogs = allBlogs.filter(blog =>
+                    blog.title.toLowerCase().includes(searchTerm)
+                );
+                displayBlogs(filteredBlogs); // Display only filtered blogs
+                console.log("Search term:", searchTerm); // Debug: Log search term
+                console.log("Filtered blogs:", filteredBlogs); // Debug: Log filtered results
+            });
+        };
     </script>
 </body>
 
