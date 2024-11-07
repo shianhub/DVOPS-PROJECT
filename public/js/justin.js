@@ -22,7 +22,7 @@ function createEditModal() {
                             </div>
                             <div class="form-group">
                                 <label for="editAuthor">Author</label>
-                                <input type="text" class="form-control" id="editAuthor" placeholder="Enter author name">
+                                <input type="text" class="form-control" id="editAuthor" placeholder="Enter author email">
                             </div>
                             <p id="editMessage" class=""></p>
                         </form>
@@ -111,3 +111,4 @@ function updateResource(id) {
 
     request.send(JSON.stringify(jsonData));
 }
+

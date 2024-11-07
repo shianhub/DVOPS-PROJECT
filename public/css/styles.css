@@ -94,4 +94,6 @@ h2 {
 .blog-actions button:hover {
     color:rgb(51, 175, 252)
 }
-
+.resourceContainer {
+    justify-content: center;
+}
