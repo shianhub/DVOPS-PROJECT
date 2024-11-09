@@ -77,6 +77,13 @@ function updateResource(id) {
         document.getElementById("editMessage").className = "text-danger";
         return;
     }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(jsonData.author)) {
+        document.getElementById("editMessage").innerHTML = 'Invalid email format for author!';
+        document.getElementById("editMessage").className = "text-danger";
+        return;
+    }
 
     var request = new XMLHttpRequest();
     request.open("PUT", "/edit-resource/" + id, true);
