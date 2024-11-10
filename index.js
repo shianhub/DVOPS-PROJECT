@@ -9,11 +9,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("./public"));
 
-const { viewBlogs, editResource, addResource, deleteResource } = require('./utils/ResourceUtil')
+const { viewBlogs} = require('./utils/BrandenUtil')
 app.get('/view-blog', viewBlogs);
-app.post('/add-resource', addResource);
+
+const { editResource } = require('./utils/JustinUtil')
 app.put('/edit-resource/:id', editResource);
+
+const { deleteResource } = require('./utils/ShianUtil')
 app.delete('/delete-resource/:id', deleteResource);
+
+const { addResource } = require('./utils/AlsenUtil')
+app.post('/add-resource', addResource);
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + "/public/" + startPage);
