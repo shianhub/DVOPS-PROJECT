@@ -22,6 +22,19 @@ header nav a {
     color: black;
     padding-left: 170px;
 }
+.search-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    color: black;
+}
+.btn-secondary {
+    color:#f9f9f9;
+    background-color: black;
+}
+.btn-secondary:hover {
+    background-color: rgb(51, 175, 252);
+}
 
 /* Main content styling */
 .container {
@@ -97,3 +110,4 @@ h2 {
 .resourceContainer {
     justify-content: center;
 }
+

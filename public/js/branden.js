@@ -47,29 +47,34 @@ function displayBlogs(blogs) {
     console.log("Blogs displayed:", blogs); // Debug: Log displayed data
 }
 
+// Filter blogs when the search button is clicked
+function handleSearch() {
+    const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
+
+    if (searchInput === '') {
+        displayBlogs(allBlogs);
+        return;
+    }
+
+    const filteredBlogs = allBlogs.filter(blog =>
+        blog.title.toLowerCase().includes(searchInput)
+    );
+
+    if (filteredBlogs.length > 0) {
+        displayBlogs(filteredBlogs);
+    } else {
+        document.getElementById('resourceContainer').innerHTML = '<p>Blog not found!</p>';
+    }
+
+    console.log("Search term:", searchInput);
+    console.log("Filtered blogs:", filteredBlogs);
+}
+
 // Initialize functionality when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
     viewBlogs();
 
-    document.getElementById('searchInput').addEventListener('input', function () {
-        const searchTerm = this.value.trim().toLowerCase();
-
-        if (searchTerm === '') {
-            displayBlogs(allBlogs);
-            return;
-        }
-
-        const filteredBlogs = allBlogs.filter(blog =>
-            blog.title.toLowerCase().includes(searchTerm)
-        );
-
-        if (filteredBlogs.length > 0) {
-            displayBlogs(filteredBlogs);
-        } else {
-            document.getElementById('resourceContainer').innerHTML = '<p>Blog not found!.</p>';
-        }
-
-        console.log("Search term:", searchTerm);
-        console.log("Filtered blogs:", filteredBlogs);
-    });
+    // Attach event listener to the Search button
+    const searchButton = document.getElementById('searchButton');
+    searchButton.addEventListener('click', handleSearch);
 });
