@@ -47,3 +47,29 @@ function displayBlogs(blogs) {
     console.log("Blogs displayed:", blogs); // Debug: Log displayed data
 }
 
+// Initialize functionality when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+    viewBlogs();
+
+    document.getElementById('searchInput').addEventListener('input', function () {
+        const searchTerm = this.value.trim().toLowerCase();
+
+        if (searchTerm === '') {
+            displayBlogs(allBlogs);
+            return;
+        }
+
+        const filteredBlogs = allBlogs.filter(blog =>
+            blog.title.toLowerCase().includes(searchTerm)
+        );
+
+        if (filteredBlogs.length > 0) {
+            displayBlogs(filteredBlogs);
+        } else {
+            document.getElementById('resourceContainer').innerHTML = '<p>Blog not found!.</p>';
+        }
+
+        console.log("Search term:", searchTerm);
+        console.log("Filtered blogs:", filteredBlogs);
+    });
+});

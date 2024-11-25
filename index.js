@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("./public"));
 
-const { viewBlogs} = require('./utils/BrandenUtil')
+const { viewBlogs } = require('./utils/BrandenUtil')
 app.get('/view-blog', viewBlogs);
 
 const { editResource } = require('./utils/JustinUtil')
